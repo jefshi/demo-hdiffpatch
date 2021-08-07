@@ -1,5 +1,6 @@
 #include <jni.h>
 #include <string>
+#include "HDiffPatch/hpatchz.c"
 
 extern "C" JNIEXPORT jint
 JNICALL Java_com_demo_hdiffpatch_HDiffPatchUtil_hpatchz
@@ -9,11 +10,19 @@ JNICALL Java_com_demo_hdiffpatch_HDiffPatchUtil_hpatchz
     const char *out = env->GetStringUTFChars(out_, 0);
     const char *patch = env->GetStringUTFChars(patch_, 0);
 
-    // TODO
+    const char *bsdiff = "bsdiff";
+
+    const char *argv[] = {
+            const_cast<char *>(bsdiff),
+            const_cast<char *>(old),
+            const_cast<char *>(out),
+            const_cast<char *>(patch)
+    };
+    int ret = hpatchz(sizeof(argv) / sizeof(argv[0]), argv);
 
     env->ReleaseStringUTFChars(old_, old);
     env->ReleaseStringUTFChars(out_, out);
     env->ReleaseStringUTFChars(patch_, patch);
 
-    return -1;
+    return ret;
 }

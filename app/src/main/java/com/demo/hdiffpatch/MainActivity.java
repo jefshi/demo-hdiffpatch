@@ -34,6 +34,5 @@ public class MainActivity extends AppCompatActivity {
                 HDiffPatchUtil.hpatchz(old, out, patch);
             }
         });
-
     }
 }
